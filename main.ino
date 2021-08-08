@@ -37,7 +37,19 @@ void handleRoot() {
 
   char buffer[600];
   sprintf(buffer, "<h1>Soil Humidity: %i %s</h1>\n<h1>Air Temperature (BMP280): %i *C</h1>\n<h1>Air Pressure: %i Pa</h1>\n<h1>Air Temperature (SHT31): %i *C</h1>\n<h1>Air Humidity: %i %s</h1>", percentageHumididy, "%", temp, pres, (int)t, (int)h, "%");
-  
+  sprintf(buffer, "{\
+    'BMP280': {\
+      'Temperature': %i,\
+      'Pressure': %i\
+    },\
+    'SHT31': {\
+      'Temperature': %i,\
+      'Humidity': %i\
+    },\
+    'CSMS' : {\
+      'Humidity': %i\
+    }\
+  }", temp, pres, (int)t, (int)h, percentageHumididy);
   server.send(200, "text/html", buffer);
 }
 
